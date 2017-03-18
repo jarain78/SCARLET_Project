@@ -9,3 +9,4 @@ To run this project you need this software JASON:
 
 http://jason.sourceforge.net/wp/
 
+Open the fiel "scarlett.mas2j" located in SCARLET_Project/SCARLETT/SCARLETT/scarlett.mas2j
