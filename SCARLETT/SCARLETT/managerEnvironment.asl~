@@ -1,0 +1,155 @@
+
+/* Initial goals */
+!start.
+
++!start : true <-	
+	.print("Hi I'm the Manager Environment'.");
+	
+	// Inicializacion de las Variables del Mundo
+	Gx = 0.0;// Gravedad en X 
+    Gy = -9.8;// Gravedad en Y 
+    Gz = 0.0;// Gravedad en Z 
+	Bgravity = true;
+	U = 0.5;
+	
+	Width = 1;
+	Height = 100;
+	Length = 100;
+
+	/* This is a possition of all body artifact*/
+	Body_X = [15.0];
+	Body_Y = [15.0];
+	Body_Z = [15.0];
+
+	/* Environment elementes */
+	
+	
+    createWorkspace("emotion_workspace"); 
+    joinWorkspace("emotion_workspace",WspID0); 
+    cartago.set_current_wsp(WspID0); 
+	
+	
+	// Creatin artifact
+	!setupArtifact2(AId2, 1.0,1.0,1.0,20.0,1.0,0.0,0.0,"none","cube",0.0,5.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.1,15.0,15.0,15.0);
+	//!setupArtifact1(AId1, 1.0,1.0,1.0,20.0,1.0,0.0,0.0,"none","sphere",0.0,5.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.1,15.0,10.0,5.0);
+	
+	
+	/* Concatenamos los nombres de de todos los Work Space */ 
+	NamesWorkSpaces ="emotion_workspace";
+	
+    TamaBodyArti = 0;
+    TamaLinkArtifact = 0;
+	TamaUnLinkArtifact = 0;
+	
+	 cartago.new_obj("Jacalive4Jason",[],InitJacalIve);
+	 cartago.invoke_obj(InitJacalIve, initJacaLive(emotion_workspace, 1, TamaLinkArtifact, TamaUnLinkArtifact, TamaBodyArti, Gx, Gy, Gz, Width, Height, Length, Bgravity, U, "Floor", 9050, "192.168.0.104", "true"));	
+	
+	 //cartago.invoke_obj(InitJacalIve, readTxtFiles("map_1.txt"));
+	 
+	 
+	.all_names(Name); 	
+	.difference(Name,[managerEnvironment], T);
+	.print("Names of Agents: ", T);
+	.length(T, Tama); 
+	
+ 	for(.range(I,0,Tama-1)){ 
+		.nth(I,T,X); 
+		.send(X, achieve, configBody("1"), 100); 
+		.wait(200);
+	} 		
+	cartago.invoke_obj(InitJacalIve,createBodys);
+	
+	.print ("End...");
+	.wait(3000);
+	
+	// Start Multi Client SDA
+	cartago.invoke_obj(InitJacalIve,multiClientServerSDA);
+	
+	cartago.invoke_obj(InitJacalIve, readPythonScript("0", "../PythonScript/Script.py"));
+	
+	!jacalIVE_Loop.
+	//!!getDataAgents.
+	
+// Creation of artifact
++!setupArtifact2(AId2, L, W, H, Mass, AccelerationX, AccelerationY, AccelerationZ, Sound,  Shape, Angle, Distance, JointX, JointY, JointZ, OrientationX, OrientationY, OrientationZ, VelocityX, VelocityY, VelocityZ, Px, Py, Pz ): true
+<-	cartago.new_obj("Jacalive4Jason",[],Id2);
+	cartago.invoke_obj(Id2, inObsProperty("IVE_Artifact", Shape, L, W, H, Mass, AccelerationX, AccelerationY, AccelerationZ, Sound,  Shape, Angle, Distance, JointX, JointY, JointZ, OrientationX, OrientationY, OrientationZ, VelocityX, VelocityY, VelocityZ, Px, Py, Pz));
+	makeArtifact("IVE_Artifact","IVE_Artifact_class",[L, W, H, Mass, AccelerationX, AccelerationY, AccelerationZ, Sound,  Shape, Angle, Distance, JointX, JointY, JointZ, OrientationX, OrientationY, OrientationZ, VelocityX, VelocityY, VelocityZ, Px, Py, Pz ], AId2);
+	focus(AId2).
+
++!setupArtifact1(AId1, L, W, H, Mass, AccelerationX, AccelerationY, AccelerationZ, Sound,  Shape, Angle, Distance, JointX, JointY, JointZ, OrientationX, OrientationY, OrientationZ, VelocityX, VelocityY, VelocityZ, Px, Py, Pz ): true
+<-	cartago.new_obj("Jacalive4Jason",[],Id2);
+	cartago.invoke_obj(Id2, inObsProperty("IVE_Artifact", Shape, L, W, H, Mass, AccelerationX, AccelerationY, AccelerationZ, Sound,  Shape, Angle, Distance, JointX, JointY, JointZ, OrientationX, OrientationY, OrientationZ, VelocityX, VelocityY, VelocityZ, Px, Py, Pz));
+	makeArtifact("IVE_Artifact1","IVE_Artifact1_class",[L, W, H, Mass, AccelerationX, AccelerationY, AccelerationZ, Sound,  Shape, Angle, Distance, JointX, JointY, JointZ, OrientationX, OrientationY, OrientationZ, VelocityX, VelocityY, VelocityZ, Px, Py, Pz ], AId1);
+	focus(AId1).
+
+
+	
++!jacalIVE_Loop:true //(Data)[source(Ag)]: true
+<-	cartago.new_obj("Jacalive4Jason",[],IVE_Loop);
+
+	//cartago.invoke_obj(IVE_Loop, getPosOfBodyArtifact("agent_1"), PosXYZ);
+	//cartago.invoke_obj(IVE_Loop, getAngleBodyArtifact("agent_1"), Angle_WXYZ);
+	
+    //cartago.invoke_obj(IVE_Loop, timeDelays);
+
+	///cartago.invoke_obj(IVE_Loop, splitInformation(Data, ",", 7), SDA_Name);
+	//cartago.invoke_obj(IVE_Loop, splitInformation(Data, ",", 8), SDA_Data);
+	
+	//cartago.invoke_obj(IVE_Loop, getSDAAddres("SDA_0X02"), SDA_Addres);
+	//.concat("SDA_Inet: "," ", SDA_Addres ,SDA_Inet);
+	//.print( SDA_Inet);
+	.print("Hola");
+	//-------------------------------------------------------------------------------
+
+	/*SDA = "SDA_0X02";
+	SDA_Action = "128 200 50";
+	.concat(SDA," ", SDA_Action ,SDA_Data_Send);
+	cartago.invoke_obj(IVE_Loop, sendDataSDA(SDA_Data_Send));*/
+	.wait(500);
+	
+	//cartago.invoke_obj(IVE_Loop, sendDataSDA("QUIT"));
+	//.wait(500);
+	cartago.invoke_obj(IVE_Loop,hashtableIsEmpty);
+	
+	cartago.invoke_obj(IVE_Loop,sendRender(Pack_8), Pack_7);
+	//!getDataAgents.
+	!jacalIVE_Loop.
+
+	
++!getDataAgents: true
+<-	.all_names(Name); 	
+	.difference(Name,[managerEnvironment], T);
+	.length(T, Tama); 
+	
+ 	for(.range(I,0,Tama-1)){ 
+		.nth(I,T,X); 
+		.send(X, achieve, getInfo("1")); 
+	} .
+		
+	
++!configureBody(Data, Index)[source(Ag)] : true
+<-	cartago.new_obj("Jacalive4Jason",[],NameBodys);
+    cartago.invoke_obj(NameBodys,setNameBodys(Data, Index)).
+
+
+		//.print(SDA_Name);
+	//.print(SDA_Data);
+	
+	//.print(PosXYZ);
+	//cartago.invoke_obj(IVE_Loop, getColicion_Flag("agent_1"));
+	
+	//.concat(BodyAg, " ", SPosRobot ," ", "Link_Obj_Artifact", " ", SLinkArti , " ", "Unlink_Wall_Artifact", " ", SUnLinkArti, Pack_7);
+	
+	//cartago.invoke_obj(IVE_Loop, readPythonScript("0", "../PythonScript/Script.py"));
+	
+	//Inhabitant,cube,agent_1,0.5,28,33,0
+	
+	//.concat("Inhabitant,cube,agent_1,",PosXYZ, ",", Angle_WXYZ, Pack_8);
+	//.print(Pack_8);
+	
+	
+	//cartago.invoke_obj(IVE_Loop, getSDAAddres("SDA_0X02"), SDA_Addres);
+	//.print(SDA_Addres);
+
+	

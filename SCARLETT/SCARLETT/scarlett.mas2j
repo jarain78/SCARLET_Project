@@ -1,0 +1,29 @@
+/* Jason Project */
+
+
+
+MAS scarlett {
+
+	infrastructure: Centralised
+	environment: c4jason.CartagoEnvironment 
+	
+	agents:
+		scarlettAgent agentArchClass c4jason.CAgentArch; 
+		
+		
+   classpath:
+   		"../Lib/jdom.jar";
+   		"../Lib/vecmath.jar";
+   		"../Lib/jbullet.jar";
+		"../Lib/opencsv-2.2.jar";
+		"../Lib/jFuzzyLogic.jar";
+		"../Lib/JaCalIVE_V1.3_Windows.jar";
+		"../Lib/jFuzzyLogic_core.jar";
+		"../Lib/cartago.jar";
+		"../Lib/c4jason.jar";
+		"../Lib/commons-exec-1.3.jar";
+		"../Lib/opencv-249.jar";
+		"../Lib/opencsv-2.2.jar";
+	aslSourcePath:
+		"src/asl";
+}
